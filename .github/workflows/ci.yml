@@ -8,6 +8,7 @@ on:
 
 env:
   NODE_VERSION: '22'
+  NPM_VERSION: '11.13.0'
 
 jobs:
   # ─────────────────────────────────────────────────────────────
@@ -26,6 +27,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+
+      - name: Upgrade npm to match local version
+        run: npm install -g npm@${{ env.NPM_VERSION }}
 
       - name: Install dependencies
         run: npm ci
@@ -70,6 +74,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+
+      - name: Upgrade npm to match local version
+        run: npm install -g npm@${{ env.NPM_VERSION }}
 
       - name: Install dependencies
         run: npm ci
