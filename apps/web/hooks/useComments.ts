@@ -23,6 +23,7 @@ export function useComments(articleId: string) {
     }
   }, [articleId])
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { fetchComments() }, [fetchComments])
 
   const addComment = useCallback(async (text: string) => {

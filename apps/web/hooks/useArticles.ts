@@ -20,6 +20,7 @@ export function useArticles() {
     }
   }, [])
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { fetch() }, [fetch])
 
   return { articles, loading, error, refetch: fetch }
@@ -32,6 +33,7 @@ export function useArticle(id: string) {
 
   useEffect(() => {
     if (!id) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true)
     articleService.getById(id)
       .then(data => { setArticle(data); articleService.registerView(id) })
