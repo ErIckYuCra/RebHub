@@ -1,0 +1,25 @@
+{
+  "name": "@readhub/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --env-file .env.local --watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@readhub/ai": "*",
+    "@readhub/config": "*",
+    "@readhub/types": "*",
+    "@modelcontextprotocol/sdk": "^1.16.0",
+    "@anthropic-ai/sdk": "^0.110.0",
+    "@supabase/supabase-js": "^2.110.0",
+    "openai": "^6.45.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "tsx": "^4.19.2",
+    "typescript": "^5"
+  }
+}

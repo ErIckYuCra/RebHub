@@ -18,6 +18,10 @@ INSERT INTO auth.users (
   email,
   encrypted_password,
   email_confirmed_at,
+  confirmation_token,
+  recovery_token,
+  email_change_token_new,
+  email_change,
   raw_app_meta_data,
   raw_user_meta_data,
   created_at,
@@ -32,6 +36,7 @@ INSERT INTO auth.users (
     'admin@readhub.com',
     crypt('Test1234!', gen_salt('bf')),
     NOW(),
+    '', '', '', '',
     '{"provider":"email","providers":["email"]}',
     '{}',
     NOW(),
@@ -46,6 +51,7 @@ INSERT INTO auth.users (
     'writer1@readhub.com',
     crypt('Test1234!', gen_salt('bf')),
     NOW(),
+    '', '', '', '',
     '{"provider":"email","providers":["email"]}',
     '{}',
     NOW(),
@@ -60,6 +66,7 @@ INSERT INTO auth.users (
     'writer2@readhub.com',
     crypt('Test1234!', gen_salt('bf')),
     NOW(),
+    '', '', '', '',
     '{"provider":"email","providers":["email"]}',
     '{}',
     NOW(),
@@ -74,6 +81,7 @@ INSERT INTO auth.users (
     'reader1@readhub.com',
     crypt('Test1234!', gen_salt('bf')),
     NOW(),
+    '', '', '', '',
     '{"provider":"email","providers":["email"]}',
     '{}',
     NOW(),
@@ -88,6 +96,7 @@ INSERT INTO auth.users (
     'reader2@readhub.com',
     crypt('Test1234!', gen_salt('bf')),
     NOW(),
+    '', '', '', '',
     '{"provider":"email","providers":["email"]}',
     '{}',
     NOW(),
@@ -132,6 +141,8 @@ WHERE id = 'a0000000-0000-0000-0000-000000000005';
 -- 3. ARTÍCULOS
 -- ============================================================
 
+-- image_path y document_path son NULL en el seed porque Storage no incluye archivos.
+-- Los usuarios suben sus propios archivos desde /upload.
 INSERT INTO public.articles (id, author_id, title, summary, document_path, image_path, is_public) VALUES
   -- Writer 1 — 3 artículos
   (
@@ -139,27 +150,21 @@ INSERT INTO public.articles (id, author_id, title, summary, document_path, image
     'a0000000-0000-0000-0000-000000000002',
     'Introducción a Next.js 15 y el App Router',
     'Exploramos las novedades del App Router en Next.js 15 y cómo estructurar proyectos escalables.',
-    'documents/intro-nextjs-15.pdf',
-    'images/intro-nextjs-15.jpg',
-    true
+    NULL, NULL, true
   ),
   (
     'b0000000-0000-0000-0000-000000000002',
     'a0000000-0000-0000-0000-000000000002',
     'Row Level Security en Supabase: guía práctica',
     'Aprende a implementar políticas RLS para proteger los datos de tu aplicación.',
-    'documents/rls-supabase.pdf',
-    'images/rls-supabase.jpg',
-    true
+    NULL, NULL, true
   ),
   (
     'b0000000-0000-0000-0000-000000000003',
     'a0000000-0000-0000-0000-000000000002',
     'Borrador: Autenticación con Supabase Auth',
     'Artículo en preparación sobre el flujo completo de autenticación.',
-    NULL,
-    NULL,
-    false  -- artículo privado (borrador)
+    NULL, NULL, false
   ),
   -- Writer 2 — 2 artículos
   (
@@ -167,18 +172,14 @@ INSERT INTO public.articles (id, author_id, title, summary, document_path, image
     'a0000000-0000-0000-0000-000000000003',
     'TypeScript avanzado: tipos utilitarios que debes conocer',
     'Un repaso por los utility types más usados en proyectos reales con TypeScript.',
-    'documents/typescript-utilities.pdf',
-    'images/typescript-utilities.jpg',
-    true
+    NULL, NULL, true
   ),
   (
     'b0000000-0000-0000-0000-000000000005',
     'a0000000-0000-0000-0000-000000000003',
     'Tailwind CSS v4: lo que cambió y cómo migrar',
     'Análisis de los cambios de Tailwind v4 y guía de migración desde v3.',
-    'documents/tailwind-v4.pdf',
-    'images/tailwind-v4.jpg',
-    true
+    NULL, NULL, true
   ),
   -- Admin — 1 artículo
   (
@@ -186,9 +187,7 @@ INSERT INTO public.articles (id, author_id, title, summary, document_path, image
     'a0000000-0000-0000-0000-000000000001',
     'Bienvenidos a ReadHub',
     'ReadHub es una plataforma abierta para compartir conocimiento técnico.',
-    'documents/bienvenida.pdf',
-    'images/bienvenida.jpg',
-    true
+    NULL, NULL, true
   );
 
 -- ============================================================
