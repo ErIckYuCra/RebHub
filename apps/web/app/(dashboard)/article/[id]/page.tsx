@@ -67,6 +67,7 @@ export default function ArticlePage({ params }: { params: Promise<{ id: string }
             src={imageUrl}
             alt={article.title}
             fill
+            sizes="(max-width: 768px) 100vw, 768px"
             className="object-cover"
             priority
             onError={() => setImgError(true)}
