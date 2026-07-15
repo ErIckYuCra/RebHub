@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button'
 import { useAuth } from '@/hooks/useAuth'
 
 export function Navbar() {
-  const { user, signOut } = useAuth()
+  const { user, profile, signOut } = useAuth()
+  const canPublish = profile?.role === 'writer' || profile?.role === 'admin'
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
@@ -27,12 +28,14 @@ export function Navbar() {
                   <span className="hidden sm:inline">Asistente</span>
                 </Button>
               </Link>
-              <Link href="/upload">
-                <Button variant="outline" size="sm" className="gap-1.5">
-                  <PenSquare className="size-4" />
-                  Publicar
-                </Button>
-              </Link>
+              {canPublish && (
+                <Link href="/upload">
+                  <Button variant="outline" size="sm" className="gap-1.5">
+                    <PenSquare className="size-4" />
+                    Publicar
+                  </Button>
+                </Link>
+              )}
               <Button variant="ghost" size="icon" onClick={signOut} title="Cerrar sesión">
                 <LogOut className="size-4" />
               </Button>
